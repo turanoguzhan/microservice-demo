@@ -1,0 +1,15 @@
+# application.yaml uygulamanın konfigurasyon tanimlarini içerir.
+# Runtime'da external propertieslere bind edilir.
+
+# asagidaki keywordleri iceren tweetleri twitterdan okuyacağız.
+twitter-to-kafka-service:
+  twitter-keywords:
+    - Java
+    - Microservices
+    - Spring
+    - Kafka
+    - Elasticsearch
+
+  welcome-message: Hello Microservices
+
+port: 8090
