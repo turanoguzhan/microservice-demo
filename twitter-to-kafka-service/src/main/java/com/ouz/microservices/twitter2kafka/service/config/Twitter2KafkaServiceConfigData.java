@@ -15,5 +15,8 @@ public class Twitter2KafkaServiceConfigData {
     private List<String> twitterKeywords; // belirtilen config property ismi ile ayni olmak zorunda.
 
     private String welcomeMessage;
-
+    private boolean enableMockTweets;
+    private int mockMinTweetLength;
+    private int mockMaxTweetLength;
+    private long sleepMs;
 }

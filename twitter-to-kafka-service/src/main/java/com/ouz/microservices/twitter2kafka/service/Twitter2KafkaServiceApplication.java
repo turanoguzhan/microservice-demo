@@ -77,6 +77,9 @@ public class Twitter2KafkaServiceApplication implements CommandLineRunner {
         LOG.info("App is starting ....");
         LOG.info(Arrays.toString(twitter2KafkaServiceConfigData.getTwitterKeywords().toArray(new String[]{})));
         LOG.info(twitter2KafkaServiceConfigData.getWelcomeMessage());
+        LOG.info(twitter2KafkaServiceConfigData.getWelcomeMessage());
+
+
 
         streamKafkaRunner.start();
     }

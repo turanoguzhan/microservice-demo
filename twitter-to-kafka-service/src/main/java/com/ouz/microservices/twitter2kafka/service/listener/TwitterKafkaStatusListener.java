@@ -20,6 +20,5 @@ public class TwitterKafkaStatusListener extends StatusAdapter {
     public void onStatus(Status status) {
         super.onStatus(status);
         LOG.info("Twitter status => {}",status);
-
     }
 }

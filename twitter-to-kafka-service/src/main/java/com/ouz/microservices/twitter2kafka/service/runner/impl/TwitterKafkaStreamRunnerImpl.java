@@ -1,9 +1,11 @@
-package com.ouz.microservices.twitter2kafka.service.runner;
+package com.ouz.microservices.twitter2kafka.service.runner.impl;
 
 import com.ouz.microservices.twitter2kafka.service.config.Twitter2KafkaServiceConfigData;
 import com.ouz.microservices.twitter2kafka.service.listener.TwitterKafkaStatusListener;
+import com.ouz.microservices.twitter2kafka.service.runner.TwitterStreamKafkaRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import twitter4j.FilterQuery;
 import twitter4j.TwitterException;
@@ -15,11 +17,15 @@ import javax.annotation.PreDestroy;
 /**
  * Spring bean'ler default olarak Singleton scope da oluşturulurlar.
  * Singleton => nesne bir kez oluşturulur ve obje inject edildiğinde aynı bean kullanılır.
- * Prototype => Her nesne çağırımında yeni bir nesne oluşturulur
+ * Prototype => Her nesne çağırımında yeni bir nesne oluşturulur.
+ *
+ * ConditionalOnProperty => property lerin duruma göre inject edilmesini
+ * ben oluşturma işleminin property durumuna bagli olarak değiştirilmek istendiğinde kullanılır.
  */
 
 @Service
-public class TwitterKafkaStreamRunnerImpl implements TwitterStreamKafkaRunner{
+@ConditionalOnProperty(value="twitter-to-kafka-service.enable-mock-tweets",havingValue = "false",matchIfMissing = true)
+public class TwitterKafkaStreamRunnerImpl implements TwitterStreamKafkaRunner {
 
     private final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStreamRunnerImpl.class);
 
@@ -45,6 +51,7 @@ public class TwitterKafkaStreamRunnerImpl implements TwitterStreamKafkaRunner{
         String[] keywords = twitter2KafkaServiceConfigData.getTwitterKeywords().toArray(new String[0]);
         FilterQuery filterQuery = new FilterQuery(keywords);
         twitterStream.filter(filterQuery);
+        twitterStream.filter(filterQuery.language("TR","tr"));
         LOG.info("Starting streaming for Twitter keywords {}",keywords);
     }
 
