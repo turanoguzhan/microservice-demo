@@ -4,6 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>twitter-to-kafka-service</module>
+        <module>app-config-data</module>
+        <module>kafka</module>
+        <module>kafka/kafka-model</module>
+        <module>kafka/kafka-admin</module>
+        <module>kafka/kafka-producer</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,8 +20,8 @@
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
-    <description>demo</description>
-    <packaging>pom</packaging>
+	<description>Microservices demo project for Spring Boot</description>
+	<packaging>pom</packaging>
 
     <properties>
         <java.version>11</java.version>
@@ -24,10 +29,17 @@
         <maven-compiler.version>3.8.1</maven-compiler.version>
         <twitter4j.version>4.0.7</twitter4j.version>
         <lombok.version>1.18.22</lombok.version>
+        <avro.version>1.11.0</avro.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.ouz.microservices</groupId>
+                <artifactId>app-config-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
@@ -66,24 +78,33 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
+            <dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro</artifactId>
+				<version>${avro.version}</version>
+			</dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+		</plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler.version}</version>
-                    <configuration>
-                        <release>11</release>
-                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

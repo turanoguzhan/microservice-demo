@@ -1,6 +1,6 @@
 HELP.md
 target/
-resources/twitter4j.properties
+/resources/twitter4j.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

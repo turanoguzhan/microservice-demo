@@ -1,0 +1,12 @@
+## this file includes network type between microservices
+version: '3.7'
+
+networks:
+  application:
+    driver: bridge
+## bridge network creates a network connect with hostnames.
+## differenc microservices use the same bridge to communication.
+## if a container or microservice is on another bridge or not on a network it can not reach the containers/microservices
+## that uses the bridge network.
+## If bridge network is not set up, default network is set up automatically and with default network
+## containers/microservies communicate with ip addresses. Ip has dynamic structure therefore

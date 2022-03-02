@@ -1,22 +1,31 @@
 package com.ouz.microservices.twitter2kafka.service;
 
-import com.ouz.microservices.twitter2kafka.service.config.Twitter2KafkaServiceConfigData;
+import com.ouz.microservices.config.Twitter2KafkaServiceConfigData;
 import com.ouz.microservices.twitter2kafka.service.runner.TwitterStreamKafkaRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
 
-@SpringBootApplication
+
 /**
  * Scope annotation bean lifecycle'ni belirlemek için kullanılırlar.
  * ( https://www.baeldung.com/spring-bean-scopes ) singleton scope defaulttur.
  * request scope her requestte yeni bean oluşturur. session scope http session boyunca devam eder.
  */
-// @Scope(value="request")  // PostConstructor annotation ile birlikte kullanılabilirdi. (1.yol)
+// @Scope(value="request")  // PostConstructor annotation ile birlikte kullanılabilirdi.//(1.yol)
+
+// *** @ComponentScan(basePackages = "com.ouz.microservices") ***
+// ComponentScan annotation ile package veya spring tarafından yönetilen/yönetilecek
+// bean tanımlamaları otomatik olarak taranır ve lifecycle a dahil edilir.
+
+
+@SpringBootApplication
+@ComponentScan(basePackages = "com.ouz.microservices")
 public class Twitter2KafkaServiceApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(Twitter2KafkaServiceApplication.class);
@@ -25,6 +34,10 @@ public class Twitter2KafkaServiceApplication implements CommandLineRunner {
      * creates immutable object, it's thread-safe. no need to add annotation (Autowired)
      * no need to reflection so app run faster. get rid of burden of loading app.
      * forces object to be created with injected parameter.
+     *   Prevents using reflection
+     *   Forces the object to be created with the injected parameter
+     *   Lets to do the injection without using @Autowired annotation
+     *   Lets the injected field to be defines as final so that the it favours immutability
      */
     private final Twitter2KafkaServiceConfigData twitter2KafkaServiceConfigData;
 
