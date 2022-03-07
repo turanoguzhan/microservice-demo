@@ -6,17 +6,19 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Data // data class tanimi, getter, setter, hashCode and toString generate edilir.
-@Configuration // config bean oldugunu belirtir.
-@ConfigurationProperties(prefix = "twitter-to-kafka-service") // belirtilen kaynaktaki config data propertylere erisim saglar.
+//@Data annotation => data class tanimi, getter, setter, hashCode and toString generate edilir.
+//@Configuration annotation => config bean oldugunu belirtir.
+//@ConfigurationProperties annotation => belirtilen kaynaktaki config data propertylere erisim saglar.
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "twitter-to-kafka-service")
 public class Twitter2KafkaServiceConfigData {
 
-
-    private List<String> twitterKeywords; // belirtilen config property ismi ile ayni olmak zorunda.
-
+    // belirtilen config property ismi ile ayni olmak zorunda.
+    private List<String> twitterKeywords;
     private String welcomeMessage;
-    private boolean enableMockTweets;
-    private int mockMinTweetLength;
-    private int mockMaxTweetLength;
-    private long sleepMs;
+    private Boolean enableMockTweets;
+    private Long mockSleepMs;
+    private Integer mockMinTweetLength;
+    private Integer mockMaxTweetLength;
 }
