@@ -11,8 +11,8 @@ import org.springframework.retry.support.RetryTemplate;
 public class RetryConfig {
     private RetryConfigData retryConfigData;
 
-    public RetryConfig(RetryConfigData retryConfigData) {
-        this.retryConfigData = retryConfigData;
+    public RetryConfig(RetryConfigData configData) {
+        this.retryConfigData = configData;
     }
 
     @Bean
@@ -24,7 +24,7 @@ public class RetryConfig {
          * ExponentialBackOffPolicy helps us increasing waiting time for each retry attempt
          */
         ExponentialBackOffPolicy exponentialBackOffPolicy = new ExponentialBackOffPolicy();
-        exponentialBackOffPolicy.setInitialInterval(retryConfigData.getInitalIntervalMs());
+        exponentialBackOffPolicy.setInitialInterval(retryConfigData.getInitialIntervalMs());
         exponentialBackOffPolicy.setMaxInterval(retryConfigData.getMaxIntervalMs());
         exponentialBackOffPolicy.setMultiplier(retryConfigData.getMultiplier());
 

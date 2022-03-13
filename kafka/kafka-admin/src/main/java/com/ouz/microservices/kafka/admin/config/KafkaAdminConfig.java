@@ -9,14 +9,16 @@ import org.springframework.retry.annotation.EnableRetry;
 
 import java.util.Map;
 
+// for using retry implementation we add @enableretry annotation.
+
 @EnableRetry
 @Configuration
 public class KafkaAdminConfig {
 
     private final KafkaConfigData kafkaConfigData;
 
-    public KafkaAdminConfig(KafkaConfigData kafkaConfigData){
-        this.kafkaConfigData = kafkaConfigData;
+    public KafkaAdminConfig(KafkaConfigData configData) {
+        this.kafkaConfigData = configData;
     }
 
     /**
@@ -25,7 +27,7 @@ public class KafkaAdminConfig {
      */
     @Bean
     public AdminClient adminClient(){
-        adminClient().create(Map.of(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,
+        return AdminClient.create(Map.of(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,
                 kafkaConfigData.getBootstrapServers()));
     }
 }
